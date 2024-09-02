@@ -40,6 +40,13 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "blog",
     "board",
+    #"account",
+    'allauth',
+    'allauth.account',
+    "django_extensions",
+    "crispy_forms",
+	"crispy_bootstrap5",
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -50,6 +57,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "fisa_django.urls"
@@ -69,6 +78,16 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+]
+
 
 WSGI_APPLICATION = "fisa_django.wsgi.application"
 
@@ -112,7 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 now = timezone.now()
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "ko-kr"
 
 TIME_ZONE = 'Asia/Seoul'
 
@@ -137,3 +156,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '_media') 
+LOGIN_REDIRECT_URL = 'blog_app:post_list'   #로그인 성공시
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
